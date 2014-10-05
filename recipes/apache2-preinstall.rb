@@ -20,6 +20,7 @@ group "#{node['apache']['group']}" do
   action :create
 end
 
+
 user "#{node['apache']['user']}" do
   gid "#{node['apache']['group']}"
   comment "apache2 user"
@@ -39,20 +40,31 @@ end
 #end
 
 directory "/home/#{node['apache']['user']}" do
-owner node['apache']['user']
-group node['apache']['group']
-mode 0755
-recursive true
-action :create
-not_if do
-File.exists?("/home/#{node['apache']['user']}")
-end
+  owner node['apache']['user']
+  group node['apache']['group']
+  mode 0755
+  recursive true
+  action :create
+  not_if do
+    File.exists?("/home/#{node['apache']['user']}")
+  end
 end
 
 user "#{node['apache']['user']}" do
   home "/home/#{node['apache']['user']}"
   shell "/bin/bash"
   action   :modify
+end
+
+directory "/home/#{node['apache']['user']}/.ssh" do
+  owner node['apache']['user']
+  group node['apache']['group']
+  mode 0700
+  recursive true
+  action :create
+  not_if do
+    File.exists?("/home/#{node['apache']['user']}/.ssh")
+  end
 end
 
 #service "apache2" do
