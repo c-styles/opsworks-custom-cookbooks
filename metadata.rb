@@ -11,3 +11,5 @@ depends 'yum'
 depends 'imagemagick'
 depends 'td-agent'
 depends 'webmin'
+
+depends 'apache2'
