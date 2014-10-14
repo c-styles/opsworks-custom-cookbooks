@@ -1,1 +1,1 @@
-include_attribute "opsworks-custom-cookbooks::deploy-php"
+include_attribute "opsworks-wrapper-cookbooks::deploy-php"
